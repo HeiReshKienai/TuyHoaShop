@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<section layout:fragment="content" class="container">
+    <h1>User Profile</h1>
+    <div>
+        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+        <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
+        <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
+        <p><strong>Address:</strong> <span th:text="${user.address}"></span></p>
+        <a class="btn btn-primary" th:href="@{/profile/edit/{username}(username=${user.username})}">Edit Profile</a>
+    </div>
+    <a class="btn btn-primary mt-3" th:href="@{/profile/history}">Lịch sử mua hàng</a>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

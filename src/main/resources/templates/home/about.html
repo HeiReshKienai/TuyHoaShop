@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="${title} ?: 'About Us'">About Us</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<section layout:fragment="content" class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>Về Chúng Tôi</h1>
+            <h2>Chào mừng đến với Tuy Hoa Shop</h2>
+            <p>Tại Tuy Hoa Shop, chúng tôi tự hào là một trong những cửa hàng đồ bộ và đáng tin cậy nhất. Với niềm đam mê và tâm huyết dành cho bộ đồ, chúng tôi không ngừng nỗ lực để mang đến cho khách hàng những sản phẩm chất lượng cao, thoải mái và phong cách.</p>
+            <h2>Sứ Mệnh Của Chúng Tôi</h2>
+            <p>Sứ mệnh của chúng tôi là cung cấp cho khách hàng những bộ đồ tốt nhất, đáp ứng mọi nhu cầu về phong cách và chất lượng. Chúng tôi tin rằng một bộ đồ tốt không chỉ làm đẹp cho bàn chân mà còn giúp bạn tự tin hơn trong mỗi bước đi.</p>
+            <h2>Tại Sao Chọn Chúng Tôi?</h2>
+            <ul>
+                <li><strong>Chất Lượng Đỉnh Cao:</strong> Mỗi bộ đồ tại Tuy Hoa Shop đều được lựa chọn kỹ lưỡng từ các nhà sản xuất uy tín. Chúng tôi cam kết mang đến cho bạn những sản phẩm bền bỉ và thoải mái.</li>
+                <li><strong>Đa Dạng Mẫu Mã:</strong> Chúng tôi cung cấp một loạt các loại đồ bộ Dù bạn đang tìm kiếm một bộ để đi làm, đi chơi hay luyện tập thể thao, chúng tôi đều có sự lựa chọn hoàn hảo cho bạn.</li>
+                <li><strong>Dịch Vụ Khách Hàng Xuất Sắc:</strong> Chúng tôi luôn đặt khách hàng lên hàng đầu. Đội ngũ nhân viên của chúng tôi luôn sẵn sàng hỗ trợ và tư vấn để bạn tìm được bộ ưng ý nhất.</li>
+            </ul>
+            <h2>Lịch Sử Phát Triển</h2>
+            <p>Tuy Hoa Shop được thành lập vào năm 2024 bởi 2 thành viên. Từ một cửa hàng nhỏ, chúng tôi đã không ngừng phát triển và mở rộng, trở thành một địa chỉ tin cậy của những tín đồ bộ đồ trên khắp cả nước. Qua từng năm, chúng tôi đã không ngừng cải thiện và hoàn thiện dịch vụ để đáp ứng nhu cầu ngày càng cao của khách hàng.</p>
+            <h2>Cam Kết Của Chúng Tôi</h2>
+            <p>Chúng tôi cam kết mang đến cho bạn trải nghiệm mua sắm tuyệt vời nhất với sản phẩm chất lượng và dịch vụ hoàn hảo. Tuy Hoa Shop hy vọng trở thành người bạn đồng hành đáng tin cậy trên mỗi bước chân của bạn.</p>
+            <h2>Liên Hệ</h2>
+            <p>Nếu bạn có bất kỳ câu hỏi nào, xin đừng ngần ngại liên hệ với chúng tôi:</p>
+            <ul>
+                <li><strong>Địa chỉ:</strong> Thủ Đức</li>
+                <li><strong>Số điện thoại:</strong> 0123456789</li>
+                <li><strong>Email:</strong> mailto:tuyhoashop@gmail.com</li>
+                <li><strong>Website:</strong> tuyhoashop.com</li>
+
+            </ul>
+            <p>Cảm ơn bạn đã tin tưởng và ủng hộ Tuy Hoa Shop. Chúng tôi rất mong được phục vụ bạn!</p>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Xác nhận đơn hàng qua Mail</title>
+</head>
+<body>
+<h1>Xin chào [[${customerName}]]!</h1>
+<p>Cảm ơn bạn đã đặt hàng tại TuyHoaShop!</p>
+<p>Đơn hàng của bạn (Mã đơn hàng: [[${orderId}]]):</p>
+
+<h1>Xác nhận đơn hàng</h1>
+<p th:text="${message}"></p>
+<h3>Thông tin khách hàng</h3>
+<p><strong>Tên khách hàng:</strong> <span th:text="${order.customerName}"></span></p>
+<p><strong>Địa chỉ:</strong> <span th:text="${order.address}"></span></p>
+<p><strong>SDT:</strong> <span th:text="${order.phoneNumber}"></span></p>
+<p><strong>Email:</strong> <span th:text="${order.email}"></span></p>
+<p><strong>Ghi Chú:</strong> <span th:text="${order.note}"></span></p>
+<p><strong>Phương thức thanh toán:</strong> <span th:text="${order.paymentMethod}"></span></p>
+<p><strong>Ngày giờ thanh toán:</strong> <span th:text="${#temporals.format(order.paymentDateTime, 'dd-MM-yyyy HH:mm:ss')}"></span></p>
+<p><strong>Trạng thái đơn hàng:</strong> <span th:text="${order.status}"></span></p>
+<h3>Chi tiết đơn hàng</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Sản Phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Số tiền</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="detail : ${orderDetails}">
+        <td th:text="${detail.productName}"></td>
+        <td th:text="${detail.quantity}"></td>
+        <td th:text="${detail.productPrice}"></td>
+        <td th:text="${detail.productPrice * detail.quantity}"></td>
+    </tr>
+
+    </tbody>
+</table>
+<p><strong>Tổng tiền:</strong> [[${totalAmount}]] VND</p>
+<p>Chúng tôi sẽ sớm xử lý đơn hàng của bạn.</p>
+</body>
+</html>

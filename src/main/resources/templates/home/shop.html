@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="${title} ?: 'Product'">Product</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+
+        .static-txt h1 {
+            display: inline-flex;
+            color: #0a0b11;
+            font-size: 50px; /
+        font-weight: 400;
+        }
+        .dynamic-txts {
+            margin-left: 20px;
+        }
+        .dynamic-txts li {
+            color: #0f8f01;
+            list-style: none;
+
+
+        }
+        .dynamic-txts li span{
+            position: relative;
+            font-weight: 500;
+            font-size: 50px
+        }
+        .dynamic-txts li span::after{
+            content:"";
+            position: absolute;
+            left: 0;
+            height: 110%;
+            width: 100%;
+            background: #FFFFFF;
+            border-left: 2px solid #347115;
+            animation: typing 1.5s steps(10) infinite;
+        }
+        @keyframes typing {
+            40%, 60%{
+                left: calc(100% + 30px);
+            }
+            100%{
+                left: 0;
+            }
+        }
+
+        .scaled-image {
+            width: 200px;
+            height: 200px;
+        }
+        .discount-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #cfcfcf;
+            color: #575757;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+
+        }
+        .product-price {
+            text-align: center;
+            margin-bottom: 0;
+            align-items: center;
+        }
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: #676767;
+            font-size: 1rem;
+        }
+        .product-price .discounted-price {
+            color: #346800;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Fillter</h1>
+                <ul class="list-unstyled templatemo-accordion">
+                    <li class="pb-3">
+                        <a class="font-weight-bold text-uppercase collapsed d-flex justify-content-between h2 text-decoration-none" href="#">
+                            Categories
+                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+                        <ul class="collapse show list-unstyled pl-3">
+                            <li th:each="category : ${categories}">
+                                <a class="text-decoration-none" th:href="@{/shop(category=${category.id})}" th:text="${category.name}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="pb-3">
+                        <a class="font-weight-bold text-uppercase collapsed d-flex justify-content-between h2 text-decoration-none" href="#">
+                            Brands
+                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+                        <ul class="collapse show list-unstyled pl-3">
+                            <li th:each="brand : ${brands}">
+                                <a class="text-decoration-none" th:href="@{/shop(brand=${brand.id})}" th:text="${brand.name}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col" th:each="product : ${products}">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0 d-flex justify-content-center position-relative">
+                                    <img class="card-img rounded-0 scaled-image align-self-center" th:src="@{/uploads/{imagename}(imagename=${product.imageUrl})}">
+                                    <div class="discount-label">GIẢM 20%</div>
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a class="btn btn-success text-white mt-2" th:href="@{/detail/{id}(id=${product.id})}"><i class="far fa-eye"></i></a>
+                                                <form th:action="@{/cart/add}" method="post">
+                                                    <input type="hidden" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                                                    <input type="hidden" th:value="${product.id}" name="productId"/>
+                                                    <button type="submit" class="btn btn-success text-white mt-2"><i class="fas fa-cart-plus"></i></button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="h3 card-title text-center" th:text="${product.name}"></p>
+                                    <p class="text-center" th:text="'Category: ' + ${product.category.getName()}"></p>
+                                    <p class="text-center" th:text="'Brand: ' + ${product.brand.getName()}"></p>
+                                    <p class="product-price">
+                                        <span class="original-price" th:text="${#numbers.formatDecimal(product.price / 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                        <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

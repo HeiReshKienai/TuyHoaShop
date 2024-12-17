@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script>
+        function showPopup(message) {
+            alert(message);
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentSuccess = urlParams.get('paymentSuccess');
+
+            if (paymentSuccess === 'true') {
+                showPopup('Thanh toán thành công!');
+            } else if (paymentSuccess === 'false') {
+                showPopup('Thanh toán thất bại.');
+            }
+        };
+    </script>
+</head>
+<body>
+<section layout:fragment="content" class="container">
+    <form th:action="@{/profile/history}"
+          th:object="${orders}" method="get" enctype="multipart/form-data">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Payment Date Time</th>
+                <th>Email</th>
+                <th>Note</th>
+                <th>Payment Method</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.phoneNumber}">Phone Number</td>
+                <td th:text="${order.address}">Address</td>
+                <td th:text="${order.paymentDateTime}">Payment Date Time</td>
+                <td th:text="${order.email}">Email</td>
+                <td th:text="${order.note}">Note</td>
+                <td th:text="${order.paymentMethod}">Payment Method</td>
+                <td th:text="${order.status}">Status</td>
+                <td>
+                    <a th:href="@{/order/confirmation(orderId=${order.id})}" class="btn btn-info btn-sm">Details</a>
+                    <a th:if="${order.paymentMethod == 'VNPAY'and order.status =='Đặt hàng thành công'}" th:href="@{/api/payment/create_payment/{orderId}(orderId=${order.id})}" class="btn btn-success btn-sm">Pay</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</section>
+
+</body>
+</html>
